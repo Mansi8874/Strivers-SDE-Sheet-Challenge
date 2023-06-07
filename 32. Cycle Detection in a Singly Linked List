@@ -1,0 +1,17 @@
+
+public class Solution {
+
+    public static boolean detectCycle(Node head) {
+        //Your code goes here
+        Node hare=head;
+        Node turtle=head;
+        while(hare.next!=null && hare.next.next!=null){
+            hare=hare.next.next;
+            turtle=turtle.next;
+            if(hare==turtle){
+                return true;
+            }
+        }
+        return false;
+    }
+}
