@@ -1,0 +1,28 @@
+public class Solution
+{
+    public static Node removeKthNode(Node head, int k)
+    {
+        // Write your code here.
+        int size=0;
+        Node curr=head;
+        while(curr!=null){
+            curr=curr.next;
+            size++;
+        }
+        int index=size-k+1;
+        if(k==size){
+            return head.next;
+        }
+        Node prev=null;
+        curr=head;
+        int i=1;
+        while(i<index){
+            prev=curr;
+            curr=curr.next;
+            i++;
+        }
+        prev.next=curr.next;
+        curr=curr.next;
+        return head;
+    }
+}
