@@ -1,0 +1,23 @@
+public class Solution {
+    public static Node firstNode(Node head) {
+        // Write your code here.
+        if(head==null || head.next==null){
+            return null;
+        }
+        Node hare=head;
+        Node turtle=head;
+        Node ans=head;
+        while(hare!=null && hare.next!=null){
+            hare=hare.next.next;
+            turtle=turtle.next;
+            if(hare==turtle){
+                while(ans!=turtle){
+                    ans=ans.next;
+                    turtle=turtle.next;
+                }
+                return ans;
+            }
+        }
+        return null;
+    }
+}
