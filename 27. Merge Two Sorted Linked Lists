@@ -1,0 +1,27 @@
+public class Solution {
+	public static LinkedListNode<Integer> sortTwoLists(LinkedListNode<Integer> first, LinkedListNode<Integer> second) {
+		// Write your code here.
+        PriorityQueue<Integer> minPq=new PriorityQueue<>();
+        while(first!=null){
+            minPq.add(first.data);
+            first=first.next;
+        }
+        while(second!=null){
+            minPq.add(second.data);
+            second=second.next;
+        }
+        LinkedListNode<Integer> head=null;
+        LinkedListNode<Integer> tail=null;
+        while(!minPq.isEmpty()){
+            LinkedListNode<Integer> newN=new LinkedListNode(minPq.poll());
+            if(head==null){
+                head=newN;
+                tail=newN;
+            }else{
+                tail.next=newN;
+                tail=tail.next;
+            }
+        }
+        return head;
+	}
+}
