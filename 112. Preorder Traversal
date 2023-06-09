@@ -1,0 +1,16 @@
+public class Solution {
+    public static List < Integer > getPreOrderTraversal(TreeNode root) {
+    	// Write your code here.
+		List<Integer> le=new ArrayList<>();
+        helper(root,le);
+        return le;
+    }
+    public static void helper(TreeNode root,List<Integer> le){
+        if(root==null){
+            return;
+        }
+        le.add(root.data);
+        helper(root.left,le);
+        helper(root.right,le);
+    }
+}
