@@ -1,0 +1,16 @@
+public class Solution {
+    public static List < Integer > getInOrderTraversal(TreeNode root) {
+        List<Integer> le=new ArrayList<>();
+    	// Write your code here.
+        helper(root,le);
+        return le;
+    }
+    public static void helper(TreeNode root,List<Integer> le){
+        if(root==null){
+            return;
+        }
+        helper(root.left,le);
+        le.add(root.data);
+        helper(root.right,le);
+    }
+}
