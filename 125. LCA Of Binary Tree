@@ -1,0 +1,32 @@
+public class Solution 
+{
+    public static int lowestCommonAncestor(TreeNode<Integer> root, int x, int y) 
+    {
+        //    Write your code here.
+        TreeNode<Integer> ans=helper(root,x,y);
+        if(ans==null){
+            return 0;
+        }else{
+            return ans.data;
+        }
+    }
+    public static TreeNode<Integer> helper(TreeNode<Integer> root,int x,int y){
+        if(root==null){
+            return null;
+        }
+        if(root.data==x || root.data==y){
+            return root;
+        }
+        TreeNode<Integer> l=helper(root.left,x,y);
+        TreeNode<Integer> r=helper(root.right,x,y);
+        if(l==null && r!=null){
+            return r;
+        }else if(r==null && l!=null){
+            return l;
+        }else if(l==null && r==null){
+            return null;
+        }else{
+            return root;
+        }
+    }
+}
