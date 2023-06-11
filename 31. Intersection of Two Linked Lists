@@ -1,0 +1,28 @@
+public class Solution {
+    public static int findIntersection(Node firstHead, Node secondHead) {
+        //Write your code here
+        Node a=firstHead;
+        Node b=secondHead;
+        if(a==b){
+            return a.data;
+        }
+        while(a!=b){
+            a=a.next;
+            b=b.next;
+            if(a==b){
+                if(a==null){
+                    return -1;
+                }else{
+                    return a.data;
+                }
+            }
+            if(a==null){
+                a=secondHead;
+            }
+            if(b==null){
+                b=firstHead;
+            }
+        }
+        return -1;
+    }
+}
