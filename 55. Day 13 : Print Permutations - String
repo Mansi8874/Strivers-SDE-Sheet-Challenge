@@ -1,0 +1,21 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static List<String> findPermutations(String s) {
+        // Write your code here.
+        List<String> ans=new ArrayList<>();
+        helper(s,"",ans);
+        return ans;
+    }
+    public static void helper(String s,String perm,List<String>ans){
+        if(s.length()==0){
+            ans.add(perm);
+            return;
+        }
+        for(int i=0;i<s.length();i++){
+            char curr=s.charAt(i);
+            String newS=s.substring(0,i)+s.substring(i+1);
+            helper(newS,perm+curr,ans);
+        }
+    }
+}
