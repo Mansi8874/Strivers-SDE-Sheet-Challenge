@@ -1,0 +1,20 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    public static int modularExponentiation(int x, int n, int m) {
+        // Write your code here.  
+        return (int)helper((long)x,(long)n,(long)m);
+    }
+    public static long helper(long x,long n,long m){
+        if(n==0){
+            return 1;
+        }  
+        long a=helper(x,n/2,m);
+        long ans=(a*a)%m;
+        if(n%2==1){
+            return (ans*x)%m;
+        }    
+        return ans;
+    }
+}
