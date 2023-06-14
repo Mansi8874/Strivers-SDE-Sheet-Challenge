@@ -1,0 +1,28 @@
+import java.util.*;
+public class Solution {
+    public static int search(int arr[], int key) {
+        // Write your code here.
+        return helper(arr,key,0,arr.length-1);
+    }
+    public static int helper(int arr[],int x,int si,int ei){
+        if(si>ei){
+            return -1;
+        }
+        int mid=(si+ei)/2;
+        if(arr[mid]==x){
+            return mid;
+        }else if(arr[mid]>=arr[si]){
+            if(arr[mid]>x && arr[si]<=x){
+                return helper(arr,x,si,mid-1);
+            }else{
+                return helper(arr,x,mid+1,ei);
+            }
+        }else{
+            if(arr[mid]<x && arr[ei]>=x){
+                return helper(arr,x,mid+1,ei);
+            }else{
+                return helper(arr,x,si,mid-1);
+            }
+        }
+    } 
+}
