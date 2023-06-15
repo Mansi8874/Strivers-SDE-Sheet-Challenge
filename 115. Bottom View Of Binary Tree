@@ -1,0 +1,37 @@
+public class Solution {
+
+    public static ArrayList<Integer> bottomView(BinaryTreeNode root) {
+         // Write your code here.       
+         ArrayList<Integer> list=new ArrayList<>();
+         if(root==null){
+             return list;
+         }  
+         TreeMap<Integer,Integer> map=new TreeMap<>();
+         Queue<Pair> q=new LinkedList<>();
+         q.add(new Pair(root,0));
+         while(!q.isEmpty()){
+             Pair p=q.poll();
+             BinaryTreeNode curr=p.node;
+             int h=p.hd;
+             map.put(h,curr.val);
+             if(curr.left!=null){
+                 q.add(new Pair(curr.left,h-1));
+             }
+             if(curr.right!=null){
+                 q.add(new Pair(curr.right,h+1));
+             }
+         }
+         for(int x:map.keySet()){
+             list.add(map.get(x));
+         }
+         return list;
+    }
+}
+class Pair{
+        BinaryTreeNode node;
+        int hd;
+        Pair(BinaryTreeNode n,int h){
+            this.node=n;
+            this.hd=h;
+        }
+    }
