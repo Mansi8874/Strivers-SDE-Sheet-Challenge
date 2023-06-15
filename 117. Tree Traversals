@@ -1,0 +1,40 @@
+public class Solution {
+    public static List<List<Integer>> getTreeTraversal(BinaryTreeNode<Integer> root) {
+        // Write your code here.
+		List<List<Integer>> ans=new ArrayList<>();
+		List<Integer> le=new ArrayList<>();
+		inorder(root,le);
+		ans.add(le);
+		List<Integer> re=new ArrayList<>();
+		preorder(root,re);
+		ans.add(re);
+		List<Integer> se=new ArrayList<>();
+		postorder(root,se);
+		ans.add(se);
+		return ans;
+    }
+	public static void inorder(BinaryTreeNode<Integer> root,List<Integer> le){
+		if(root==null){
+			return;
+		}
+		inorder(root.left,le);
+		le.add(root.data);
+		inorder(root.right,le);
+	}
+	public static void preorder(BinaryTreeNode<Integer> root,List<Integer> le){
+		if(root==null){
+			return;
+		}
+		le.add(root.data);
+		preorder(root.left,le);
+		preorder(root.right,le);
+	}
+	public static void postorder(BinaryTreeNode<Integer> root,List<Integer> le){
+		if(root==null){
+			return;
+		}
+		postorder(root.left,le);
+		postorder(root.right,le);
+		le.add(root.data);
+	}
+}
