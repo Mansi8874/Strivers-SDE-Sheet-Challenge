@@ -1,0 +1,16 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+
+	public static void sortStack(Stack<Integer> stack) {
+		// Write your code here.
+		PriorityQueue<Integer> pq=new PriorityQueue<>();
+		while(!stack.isEmpty()){
+			pq.add(stack.pop());
+		}
+		while(!pq.isEmpty()){
+			stack.push(pq.poll());
+		}
+	}
+
+}
