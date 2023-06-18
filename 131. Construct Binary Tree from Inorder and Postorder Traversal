@@ -1,0 +1,32 @@
+public class Solution {
+	public static TreeNode<Integer> getTreeFromPostorderAndInorder(int[] postOrder, int[] inOrder) {
+		// Write your code here.
+    return helper(inOrder,postOrder,0,inOrder.length-1,0,postOrder.length-1);
+    }
+    public static TreeNode<Integer> helper(int inorder[],int postOrder[],int ins,int ine,int pos,int poe){
+        if(ins>ine){
+            return null;
+        }
+        int rootdata=postOrder[poe];
+        TreeNode<Integer> root=new TreeNode(rootdata);
+        int rootIndex=-1;
+        for(int i=ins;i<=ine;i++){
+            if(inorder[i]==rootdata){
+                rootIndex=i;
+                break;
+            }
+        }
+        int leftIns=ins;
+        int leftIne=rootIndex-1;
+        int leftPos=pos;
+        int leftPoe=leftIne-leftIns+leftPos;
+        int rightIns=rootIndex+1;
+        int rightIne=ine;
+        int rightPos=leftPoe+1;
+        int rightPoe=poe-1;
+        root.left=helper(inorder,postOrder,leftIns,leftIne,leftPos,leftPoe);
+        root.right=helper(inorder,postOrder,rightIns,rightIne,rightPos,rightPoe);
+        return root;
+        
+    }
+}
