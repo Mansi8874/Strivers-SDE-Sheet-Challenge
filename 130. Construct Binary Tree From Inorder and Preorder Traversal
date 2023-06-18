@@ -1,0 +1,36 @@
+
+import java.util.ArrayList;
+
+public class Solution 
+{
+    public static TreeNode<Integer> buildBinaryTree(ArrayList<Integer>  inorder, ArrayList<Integer>  preorder) 
+    {
+        //    Write your code here.
+        return helper(preorder,inorder,0,preorder.size()-1,0,inorder.size()-1);
+    }
+    public static TreeNode<Integer> helper(ArrayList<Integer> preorder,ArrayList<Integer> inorder,int prs,int pre,int ins,int ine){
+        if(ins>ine){
+            return null;
+        }
+        int rootdata=preorder.get(prs);
+        TreeNode<Integer> root=new TreeNode(rootdata);
+        int rootIndex=-1;
+        for(int i=ins;i<=ine;i++){
+            if(inorder.get(i)==rootdata){
+                rootIndex=i;
+                break;
+            }
+        }
+        int leftins=ins;
+        int leftine=rootIndex-1;
+        int leftprs=prs+1;
+        int leftpre=leftine-leftins+leftprs;
+        int rightins=rootIndex+1;
+        int rightine=ine;
+        int rightprs=leftpre+1;
+        int rightpre=pre;
+        root.left=helper(preorder,inorder,leftprs,leftpre,leftins,leftine);
+        root.right=helper(preorder,inorder,rightprs,rightpre,rightins,rightine);
+        return root;
+    }
+}
