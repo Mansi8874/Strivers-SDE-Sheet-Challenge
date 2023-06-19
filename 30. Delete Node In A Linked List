@@ -1,0 +1,23 @@
+public class Solution {
+	public static void deleteNode(LinkedListNode<Integer> node,int data) {
+		// Write your code here.
+        if(node==null){
+            return;
+        }
+        LinkedListNode curr=node;
+        LinkedListNode prev=null;
+        while(curr!=null){
+            if(curr.data==data){
+                if(prev==null){
+                    return curr.next;
+                }else{
+                    prev.next=curr.next;
+                    curr=curr.next;
+                    return node;
+                }
+            }
+            prev=curr;
+            curr=curr.next;
+        }
+	}
+}
