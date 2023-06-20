@@ -1,0 +1,41 @@
+
+public class Solution {
+    static LinkedListNode addTwoNumbers(LinkedListNode first, LinkedListNode second) {
+        LinkedListNode firstRev=reverse(first);
+        LinkedListNode secRev=reverse(second);
+        LinkedListNode head=null;
+        LinkedListNode prev=null;
+        int carry=0;
+        while(firstRev!=null || secRev!=null || carry!=0){
+            int sum=carry;
+            if(firstRev!=null){
+                sum+=firstRev.data;
+                firstRev=firstRev.next;
+            }
+            if(secRev!=null){
+                sum+=secRev.data;
+                secRev=secRev.next;
+            }
+            carry=sum/10;
+            int x=sum%10;
+            LinkedListNode newN=new LinkedListNode(x);
+            if(head==null){
+                head=newN;
+                prev=newN;
+            }else{
+                prev.next=newN;
+                prev=prev.next;
+            }
+        }
+        return reverse(head);
+    }
+    public static LinkedListNode reverse(LinkedListNode head){
+        if(head==null || head.next==null){
+            return head;
+        }
+        LinkedListNode rev=reverse(head.next);
+        head.next.next=head;
+        head.next=null;
+        return rev;
+    }
+}
