@@ -1,0 +1,26 @@
+public class Solution {
+
+	public static long countWaysToMakeChange(int coins[], int sum){
+        //write your code here	
+		int N=coins.length;
+		long storage[][]=new long[N+1][sum+1];
+        for(int i=0;i<=N;i++){
+            storage[i][0]=1;
+        }
+        for(int i=0;i<=sum;i++){
+            storage[0][i]=0;
+        }
+        for(int i=1;i<=N;i++){
+            for(int j=1;j<=sum;j++){
+                if(coins[i-1]<=j){
+                    storage[i][j]=storage[i-1][j]+storage[i][j-coins[i-1]];
+                }else{
+                    storage[i][j]=storage[i-1][j];
+                }
+            }
+        }
+        return storage[N][sum];		
+
+	}
+	
+}
