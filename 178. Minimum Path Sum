@@ -1,0 +1,23 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+    public static int minSumPath(int[][] grid) {
+    	// Write your code here.
+        int m=grid.length;
+        int n=grid[0].length;
+        int storage[][]=new int[m][n];
+        storage[m-1][n-1]=grid[m-1][n-1];
+        for(int j=n-2;j>=0;j--){
+            storage[m-1][j]=storage[m-1][j+1]+grid[m-1][j];
+        }
+        for(int i=m-2;i>=0;i--){
+            storage[i][n-1]=storage[i+1][n-1]+grid[i][n-1];
+        }
+        for(int i=m-2;i>=0;i--){
+            for(int j=n-2;j>=0;j--){
+                storage[i][j]=Math.min(storage[i+1][j],storage[i][j+1])+grid[i][j];
+            }
+        }
+        return storage[0][0];
+    }
+}
