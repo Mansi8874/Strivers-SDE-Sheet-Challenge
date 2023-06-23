@@ -1,0 +1,48 @@
+import java.util.* ;
+import java.io.*; 
+public class Solution {
+	static class Edge{
+		int src;
+		int dest;
+		Edge(int s,int d){
+			this.src=s;
+			this.dest=d;
+		}
+	}
+	public static ArrayList<Integer> BFS(int vertex, int edges[][]){
+		// WRITE YOUR CODE HERE
+		ArrayList<Edge> graph[]=new ArrayList[vertex];
+		for(int i=0;i<vertex;i++){
+			graph[i]=new ArrayList<Edge>();
+		}
+		for(int i=0;i<edges.length;i++){
+			int s=edges[i][0];
+			int d=edges[i][1];
+			graph[s].add(new Edge(s,d));
+			graph[d].add(new Edge(d,s));
+		}
+		ArrayList<Integer> list=new ArrayList<>();
+		boolean vis[]=new boolean[vertex];
+		for(int i=0;i<vertex;i++){
+			if(!vis[i]){
+				helper(graph,vis,i,list);
+			}
+		}
+		return list;
+	}
+	public static void helper(ArrayList<Edge> graph[],boolean vis[],int curr,ArrayList<Integer> list){
+		Queue<Integer> q=new LinkedList<>();
+		q.add(curr);
+		while(!q.isEmpty()){
+			int x=q.poll();
+			if(!vis[x]){
+			vis[x]=true;
+			list.add(x);
+			for(int i=0;i<graph[x].size();i++){
+				Edge e=graph[x].get(i);
+				q.add(e.dest);
+			}
+			}
+		}
+	}
+}
