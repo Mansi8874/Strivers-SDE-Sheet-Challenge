@@ -1,0 +1,28 @@
+import java.util.* ;
+import java.io.*; 
+
+public class Solution {
+	public static int matrixMultiplication(int[] p , int n) {
+		// Write your code here
+		int arr[][]=new int[n][n];
+		for(int i=1;i<n;i++){
+			arr[i][i]=0;
+		}
+		for(int l=2;l<n;l++){
+			for(int i=1;i<n-l+1;i++){
+				int j=i+l-1;
+				if(j==n){
+					continue;
+				}
+				arr[i][j]=Integer.MAX_VALUE;
+				for(int k=i;k<=j-1;k++){
+					int q=arr[i][k]+arr[k+1][j]+p[i-1]*p[k]*p[j];
+					if(q<arr[i][j]){
+						arr[i][j]=q;
+					}
+				}
+			}
+		}
+		return arr[1][n-1];
+	}
+}
