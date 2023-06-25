@@ -1,0 +1,70 @@
+import java.util.*;
+public class Solution {
+    static class Edge{
+        int src;
+        int dest;
+        Edge(int s,int d){
+            this.src=s;
+            this.dest=d;
+        }
+    }
+    public static List<List<Integer>> stronglyConnectedComponents(int n, int[][] edges) {
+        // Write your code here
+        ArrayList<Edge> graph[]=new ArrayList[n];
+        for(int i=0;i<n;i++){
+            graph[i]=new ArrayList<Edge>();
+        }
+        for(int i=0;i<edges.length;i++){
+            int s=edges[i][0];
+            int d=edges[i][1];
+            graph[s].add(new Edge(s,d));
+        }
+        Stack<Integer> st=new Stack<>();
+        boolean vis[]=new boolean[n];
+        for(int i=0;i<n;i++){
+            if(!vis[i]){
+                helper(graph,vis,i,st);
+            }
+        }
+        ArrayList<Edge> transpose[]=new ArrayList[n];
+        for(int i=0;i<n;i++){
+            transpose[i]=new ArrayList<Edge>();
+        }
+        for(int i=0;i<graph.length;i++){
+            vis[i]=false;
+            for(int j=0;j<graph[i].size();j++){
+                Edge e=graph[i].get(j);
+                transpose[e.dest].add(new Edge(e.dest,e.src));
+            }
+        }
+        List<List<Integer>> ans=new ArrayList<>();
+        while(!st.isEmpty()){
+            int s=st.pop();
+            List<Integer> list=new ArrayList<>();
+            helper1(s,transpose,vis,list);
+            ans.add(list);
+            Collections.sort(list);
+        }
+        return ans;
+    }
+    public static void helper1(int curr,ArrayList<Edge> transpose[],boolean vis[],List<Integer> list){
+        vis[curr]=true;
+        list.add(curr);
+        for(int i=0;i<transpose[curr].size();i++){
+            Edge e=transpose[curr].get(i);
+            if(!vis[e.dest]){
+                helper1(e.dest,transpose,vis,list);
+            }
+        }
+    }
+    public static void helper(ArrayList<Edge> graph[],boolean vis[],int curr,Stack<Integer> st){
+        vis[curr]=true;
+        for(int i=0;i<graph[curr].size();i++){
+            Edge e=graph[curr].get(i);
+            if(!vis[e.dest]){
+                helper(graph,vis,e.dest,st);
+            }
+        }
+        st.push(curr);
+    }
+}
