@@ -1,0 +1,75 @@
+import java.util.*;
+class Heap{
+    int arr[];
+    int size;
+    //Initialize the heap with 1 based indexed array
+    Heap(int n){
+        arr = new int[n];
+        arr[0] = -1;
+        size = 0;
+    }
+    
+    void swap(int i,int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+    
+    void add(int element){
+        size++;
+        int i = size;
+        arr[i] = element;
+       
+        while(i>1){
+            int  parent = i/2;
+            if(arr[parent]>arr[i]){
+                swap(parent,i);
+                i = parent;
+            }else{
+                return;
+            }
+        }
+    }
+    
+    int poll(){
+        if(size==0) return -1;
+        int res = arr[1];
+        arr[1] = arr[size];
+        size--;
+        int i = 1;
+        while(i<size){
+            int left = 2*i;
+            int  right = 2*i+1;
+            
+            int smaller = i;
+            
+            if(left<=size && arr[smaller]>arr[left]){
+                smaller = left;
+            }
+            if(right<=size && arr[smaller]>arr[right]){
+                smaller = right;
+            }
+            
+            if(i==smaller) break;
+            swap(i,smaller);
+            i=smaller;
+        }
+        return res;
+    }
+}
+public class Solution {
+    static int[] minHeap(int n, int[][] q) {
+        Heap pq = new Heap(n+1);
+        ArrayList<Integer> res = new ArrayList<>();
+        for(int[] query : q){
+            if(query[0]==0){
+                pq.add(query[1]);
+            }else{
+                res.add(pq.poll());
+            }
+        }
+        int ans[] = new int[res.size()];
+        for(int i=0;i<res.size();i++) ans[i] = res.get(i);
+        return ans;
+    }
+}
