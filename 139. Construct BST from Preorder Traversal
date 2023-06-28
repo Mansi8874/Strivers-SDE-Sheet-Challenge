@@ -1,0 +1,29 @@
+public class Solution {
+ 
+	public static TreeNode<Integer> preOrderTree(int[] preOrder) {
+ 		// Write your code here
+		 return helper(preOrder,0,preOrder.length-1);
+	}
+	public static TreeNode<Integer> helper(int[] preOrder,int si,int ei){
+		if(si>ei){
+			return null;
+		}
+		TreeNode<Integer> root=new TreeNode(preOrder[si]);
+		int mid=si+1;
+		while(mid<=ei && preOrder[mid]<preOrder[si]){
+			mid++;
+		}
+		if(mid==si+1){
+			root.left=null;
+			root.right=helper(preOrder,mid,ei);
+		}else if(mid>ei){
+			root.right=null;
+			root.left=helper(preOrder,si+1,ei);
+		}else{
+			root.left=helper(preOrder,si+1,mid-1);
+			root.right=helper(preOrder,mid,ei);
+		}
+		return root;
+	}
+
+}
