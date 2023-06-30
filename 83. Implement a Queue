@@ -1,3 +1,5 @@
+import java.util.* ;
+import java.io.*; 
 public class Queue {
 
     private int[] data;
@@ -28,6 +30,55 @@ public class Queue {
 
  
 
+    void enqueue(int x) {
+
+        data[end++] = x;
+
+    }
+
+ 
+
+    int dequeue() {
+
+       if(isEmpty()){
+
+           return -1;
+
+       }
+
+       int removed = data[0];
+
+       for(int i=1; i<end; i++){
+
+           data[i-1] = data[i];
+
+       }
+
+       end--; 
+
+       return removed;
+
+    }
+
+ 
+
+    int front() {
+
+        if(isEmpty()){
+
+           return -1;
+
+       }
+
+        return data[0];
+
+    }
+
+ 
+
+}
+
+ 
     void enqueue(int x) {
 
         data[end++] = x;
