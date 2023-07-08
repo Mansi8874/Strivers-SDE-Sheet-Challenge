@@ -1,0 +1,54 @@
+public class Solution {
+
+    static int ms(int i,int target,int[] price,int[][] dp){
+
+        if(i==0){
+
+            return target*price[i];
+
+        }
+
+        if(dp[i][target]!=-1) return dp[i][target];
+
+        int nontake = ms(i-1,target,price,dp);
+
+        int take = Integer.MIN_VALUE;
+
+        int rodlength = i+1;
+
+        if(rodlength<=target){
+
+            take = price[i]+ ms(i,target-rodlength,price,dp);
+
+        }
+
+        return dp[i][target]= Math.max(take,nontake);
+
+    }
+
+    public static int cutRod(int price[], int target) {
+
+        int n = price.length;
+
+        int [][] dp = new int[n][target+1];
+
+        
+
+        for(int i=0;i<n;i++){
+
+            for(int j=0;j<target+1;j++){
+
+                dp[i][j]=-1;
+
+            }
+
+        }
+
+ 
+
+        return ms(n-1,target,price,dp);
+
+    }
+
+}
+
